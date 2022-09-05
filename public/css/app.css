@@ -10966,3 +10966,29 @@ a.text-dark:focus {
   }
 }
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content h5 {
+  text-align: center;
+}
+
+.card-content h6 {
+  text-align: center;
+}
+
+.form-group {
+  margin-right: 400px;
+}
+
+.form-group label {
+  font-size: 20px;
+}
+
