@@ -10992,3 +10992,11 @@ a.text-dark:focus {
   font-size: 20px;
 }
 
+.links-post {
+  display: flex;
+}
+
+.links-post .red:hover {
+  color: red;
+}
+

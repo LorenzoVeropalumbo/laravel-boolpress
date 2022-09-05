@@ -10,6 +10,10 @@
         <p class="card-text">{{ $post->content }}</p>
         <p class="card-text">Creato il {{ $post->created_at }}</p>
         <p class="card-text">Aggiornato il {{ $post->created_at }}</p>
+        <div class="links-post">
+          <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link red">Elimina</a>
+          <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link">Modifica</a>
+        </div>
       </div>
     </div>     
   </div>

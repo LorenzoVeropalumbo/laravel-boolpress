@@ -9,7 +9,11 @@
         <h5 class="card-title pb-3">{{ $post->title }}</h5>
         {{-- <p class="card-text">{{ $post->content }}</p> --}}
         {{-- <a href="#" class="card-link">Modify Post</a> --}}
-        <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link">Info Post</a>
+        <div class="links-post">
+          <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link">Informazioni</a>
+          <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link red">Elimina</a>
+          <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link">Modifica</a>
+        </div>
       </div>
     </div>     
   </div>
