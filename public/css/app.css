@@ -11000,3 +11000,19 @@ a.text-dark:focus {
   color: red;
 }
 
+.links-post .blue:hover {
+  color: rgb(1, 116, 177);
+}
+
+.links-post a {
+  color: black;
+  padding-inline: 10px;
+}
+
+.links-post input {
+  padding-inline: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+

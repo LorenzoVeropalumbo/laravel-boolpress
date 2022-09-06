@@ -30,4 +30,20 @@
   .red:hover{
     color: red;
   }
+
+  .blue:hover{
+    color: rgb(1, 116, 177);
+  }
+
+  a{
+    color: black;
+    padding-inline: 10px;
+  }
+
+  input{
+    padding-inline: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -14,12 +15,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $deleted_message = $request->all();
         $all_posts = Post::All();
 
         $data = [
           'posts' => $all_posts,
+          'deleted' =>  $deleted_message
         ];
         
         return view('admin.post.index', $data);
@@ -64,8 +67,11 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        $now = Carbon::now();
+        $diff = $post->created_at->diffInHours($now);
         $data = [
-            'post' =>  $post
+            'post' =>  $post,
+            'updated' => $diff,
         ];
 
         return view('admin.post.show', $data);
@@ -79,7 +85,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $data = [
+            'post' =>  $post
+        ];
+
+        return view('admin.post.edit', $data);
     }
 
     /**
@@ -91,7 +103,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->getValidationRules()); 
+        $form_data = $request->all();
+        $old_post = Post::findOrFail($id);
+
+        if($form_data['title'] !== $old_post->title){
+            $form_data['slug'] = $this->getFreeSlug($form_data['title']);
+        }else{
+            $form_data['slug'] = $old_post->slug;
+        }
+
+        $old_post->update($form_data);
+
+        return redirect()->route('admin.post.show', ['post' => $old_post->id]);
     }
 
     /**
@@ -102,7 +126,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->delete();
+
+        return redirect()->route('admin.post.index',['deleted' => 'yes']);
     }
 
     protected function getFreeSlug($title){
