@@ -190,6 +190,7 @@ class PostController extends Controller
         return [
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10|max:60000',
+            'category_id' => 'exists:categories,id'
         ];
     }
 }
