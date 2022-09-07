@@ -89,6 +89,7 @@ class PostController extends Controller
         } else {
             
             $diff = $post->updated_at->diffInMinutes($now);
+            
             if($diff == 1){
                 $type_of_difference = 'minuto'; 
             } else {
