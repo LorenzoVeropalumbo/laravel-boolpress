@@ -77,10 +77,29 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $now = Carbon::now();
-        $diff = $post->created_at->diffInHours($now);
+        if($post->updated_at->diffInHours($now) > 0){
+            
+            $diff = $post->updated_at->diffInHours($now);
+            if($diff == 1){
+               $type_of_difference = 'ora'; 
+            } else {
+                $type_of_difference = 'ore'; 
+            }
+            
+        } else {
+            
+            $diff = $post->updated_at->diffInMinutes($now);
+            if($diff == 1){
+                $type_of_difference = 'minuto'; 
+            } else {
+                $type_of_difference = 'minuti'; 
+            }
+        }
+        
         $data = [
             'post' =>  $post,
             'updated' => $diff,
+            'time' => $type_of_difference,
         ];
 
         return view('admin.post.show', $data);

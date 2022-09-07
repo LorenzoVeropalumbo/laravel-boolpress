@@ -10,7 +10,7 @@
         <p class="card-text">{{ $post->content }}</p>
         <p class="card-text">Categoria del post : {{ $post->category ? $post->category->name : 'Nessuna' }}</p>
         <p class="card-text">Creato il : {{ $post->created_at->format('l, j F Y')}}</p>
-        <p class="card-text">Aggiornato : {{$updated}} or{{ $updated == 1 ? 'a' : 'e' }} fa</p>      
+        <p class="card-text">Aggiornato : {{$updated}} {{$time}} fa</p>      
         <div class="links-post">
           <form action="{{ route('admin.post.destroy',['post' => $post->id]) }}" method="POST">
             @csrf
