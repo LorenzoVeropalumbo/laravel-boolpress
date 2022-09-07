@@ -7,8 +7,8 @@
       <div class="card-content">
         <h5 class="card-title">{{ $post->title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Slug : {{ $post->slug }}</h6>
-        <p class="card-text">{{ $post->category->name }}</p>
         <p class="card-text">{{ $post->content }}</p>
+        <p class="card-text">Categoria del post : {{ $post->category ? $post->category->name : 'Nessuna' }}</p>
         <p class="card-text">Creato il : {{ $post->created_at->format('l, j F Y')}}</p>
         <p class="card-text">Aggiornato : {{$updated}} or{{ $updated == 1 ? 'a' : 'e' }} fa</p>      
         <div class="links-post">

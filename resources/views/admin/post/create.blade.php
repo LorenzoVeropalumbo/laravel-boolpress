@@ -21,6 +21,17 @@
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
   </div>
+  
+  <div class="form-group">
+    <label for="category_id">Categoria</label>
+    <select class="form-select mb-2" id="category_id" name="category_id">   
+      <option value="">Nessuna</option>
+      @foreach ($categories as $category)
+        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>  
+      @endforeach
+    </select>
+  </div>
+
   <div class="form-group">
     <label for="content">Testo</label>
     <textarea class="form-control" id="content" rows="5" name="content">{{ old('content') }}</textarea>

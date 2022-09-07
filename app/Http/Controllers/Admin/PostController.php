@@ -39,7 +39,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $categories = Category::all();
+
+        $data = [
+            'categories' => $categories,
+        ];
+
+        return view('admin.post.create',$data);
     }
 
     /**
@@ -88,10 +94,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $post = Post::findOrFail($id);
 
         $data = [
-            'post' =>  $post
+            'post' =>  $post,
+            'categories' => $categories,
         ];
 
         return view('admin.post.edit', $data);
