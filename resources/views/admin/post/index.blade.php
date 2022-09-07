@@ -2,10 +2,10 @@
 
 @section('content')
 <h1>Lista dei Post</h1>
-@if ($deleted['deleted'] === 'yes')
-<div class="alert alert-success" role="alert">
-  Post eliminato con successo
-</div>
+@if ($deleted === 'yes')
+  <div class="alert alert-success" role="alert">
+    Post eliminato con successo
+  </div>
 @endif
 <div class="row row-cols-4">
   @foreach ($posts as $post)
