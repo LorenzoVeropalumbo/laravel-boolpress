@@ -1,20 +1,26 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h1>Lista dei Post</h1>
+<h1 id="index-h1">Lista dei Post</h1>
 @if ($deleted === 'yes')
   <div class="alert alert-success" role="alert">
     Post eliminato con successo
   </div>
 @endif
-<div class="row row-cols-4">
+
+<div class="row row-cols-3">
   @foreach ($posts as $post)
   <div class="col">
-    <div class="card m-3" style="width: 18rem; height: 150px;">
+    <div class="card m-3" style="width: 18rem; height: 200px; width: 99%;">
       <div class="card-body">
-        <h5 class="card-title pb-3">{{ $post->title }}</h5>
-        {{-- <p class="card-text">{{ $post->content }}</p> --}}
-        {{-- <a href="#" class="card-link">Modify Post</a> --}}
+        <h5 class="card-title">{{ $post->title }}</h5>
+        <div class="tags-container">
+          @foreach ($tags as $tag)
+            <span class="tags {{$post->tags->contains($tag) ? 'tag-set' : ''}}">{{ $tag->name }}</span> 
+          @endforeach
+          
+        </div>
+       
         <div class="links-post">
           <a href="{{ route('admin.post.show',['post' => $post->id]) }}" class="card-link blue">Informazioni</a>
           <form action="{{ route('admin.post.destroy',['post' => $post->id]) }}" method="POST">

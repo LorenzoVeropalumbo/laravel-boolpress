@@ -9,6 +9,12 @@
         <h6 class="card-subtitle mb-2 text-muted">Slug : {{ $post->slug }}</h6>
         <p class="card-text">{{ $post->content }}</p>
         <p class="card-text">Categoria del post : {{ $post->category ? $post->category->name : 'Nessuna' }}</p>
+        <span>Tags : </span> 
+        @forelse ($post->tags as $tag)
+          <p class="card-text tag-text">{{ $tag->name }}{{ !$loop->last ? ' -' : ''}}</p>  
+        @empty
+          <p class="card-text tag-text">Nessun tag</p>
+        @endforelse
         <p class="card-text">Creato il : {{ $post->created_at->format('l, j F Y')}}</p>
         <p class="card-text">Aggiornato : {{$updated}} {{$time}} fa</p>      
         <div class="links-post">

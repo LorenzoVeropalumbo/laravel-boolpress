@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Category;
@@ -20,13 +21,15 @@ class PostController extends Controller
     {
         
         $all_posts = Post::All();
+        $all_tags = Tag::All();
         $request_info = $request->all();
 
         $show_deleted_message = isset($request_info['deleted']) ? $request_info['deleted'] : null;
 
         $data = [
           'posts' => $all_posts,
-          'deleted' => $show_deleted_message
+          'deleted' => $show_deleted_message,
+          'tags' => $all_tags
         ];
         
         return view('admin.post.index', $data);
@@ -40,9 +43,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $all_tags = Tag::All();
 
         $data = [
             'categories' => $categories,
+            'tags' => $all_tags
         ];
 
         return view('admin.post.create',$data);
@@ -64,6 +69,13 @@ class PostController extends Controller
         $new_post->fill($form_data);      
         $new_post->slug = $this->getFreeSlug($new_post->title);
         $new_post->save();
+
+        if (isset($form_data['tags'])) {
+            $new_post->tags()->sync($form_data['tags']);
+        } else {
+            $new_post->tags()->sync([]);
+        }
+
         return redirect()->route('admin.post.show', ['post' => $new_post->id]);
     }
 
@@ -116,10 +128,12 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $post = Post::findOrFail($id);
+        $all_tags = Tag::All();
 
         $data = [
             'post' =>  $post,
             'categories' => $categories,
+            'tags' => $all_tags
         ];
 
         return view('admin.post.edit', $data);
@@ -146,6 +160,12 @@ class PostController extends Controller
 
         $old_post->update($form_data);
 
+        if (isset($form_data['tags'])) {
+            $old_post->tags()->sync($form_data['tags']);
+        } else {
+            $old_post->tags()->sync([]);
+        }
+
         return redirect()->route('admin.post.show', ['post' => $old_post->id]);
     }
 
@@ -158,6 +178,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
         return redirect()->route('admin.post.index',['deleted' => 'yes']);

@@ -10972,6 +10972,33 @@ a.text-dark:focus {
   justify-content: space-between;
 }
 
+.card-body .tags-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-body .tags-container .tags {
+  font-size: 14px;
+  border: 1px solid red;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 18px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.card-body .tags-container .tag-set {
+  background-color: red;
+}
+
+.tag-text {
+  display: inline-block;
+}
+
+#index-h1 {
+  padding-left: 14px;
+}
+
 .card-content {
   padding: 15px;
 }
@@ -10984,16 +11011,23 @@ a.text-dark:focus {
   text-align: center;
 }
 
-.form-group {
+.custom-form {
   margin-right: 400px;
 }
 
-.form-group label {
+.custom-form label {
   font-size: 20px;
+}
+
+.form-check {
+  font-size: 16px;
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .links-post {
   display: flex;
+  font-size: 16px;
 }
 
 .links-post .red:hover {
@@ -11006,11 +11040,11 @@ a.text-dark:focus {
 
 .links-post a {
   color: black;
-  padding-inline: 10px;
+  padding-right: 20px;
 }
 
 .links-post input {
-  padding-inline: 10px;
+  padding-right: 20px;
   cursor: pointer;
   background: none;
   border: none;

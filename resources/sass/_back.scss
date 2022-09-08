@@ -2,6 +2,33 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
+  .tags-container{
+    display: flex;
+    flex-wrap: wrap;
+    
+    .tags{
+      font-size: 14px;
+      border: 1px solid red;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border-radius: 18px;
+      padding: 3px 10px;
+      cursor: pointer;
+    }
+
+    .tag-set{
+      background-color: red;
+    }
+  }
+}
+
+.tag-text{
+  display: inline-block;
+}
+
+#index-h1{
+  padding-left: 14px;
 }
 
 .card-content{
@@ -16,7 +43,7 @@
   }
 }
 
-.form-group{
+.custom-form{
   margin-right: 400px;
 
   label{
@@ -24,8 +51,15 @@
   }
 }
 
+.form-check{
+  font-size: 16px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .links-post{
   display: flex;
+  font-size: 16px;
 
   .red:hover{
     color: red;
@@ -37,11 +71,11 @@
 
   a{
     color: black;
-    padding-inline: 10px;
+    padding-right: 20px;
   }
 
   input{
-    padding-inline: 10px;
+    padding-right: 20px;
     cursor: pointer;
     background: none;
     border: none;

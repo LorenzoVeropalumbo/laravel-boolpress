@@ -18,11 +18,11 @@
 <form action="{{ route('admin.post.update',['post' => $post->id]) }}" method="POST">
   @csrf
   @method("PUT")
-  <div class="form-group">
+  <div class="custom-form form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
   </div>
-  <div class="form-group">
+  <div class="custom-form form-group">
     <label for="category_id">Categoria</label>
     <select class="form-select mb-2" id="category_id" name="category_id">   
       <option value="">Nessuna</option>
@@ -31,7 +31,21 @@
       @endforeach
     </select>
   </div>
-  <div class="form-group">
+  <h4 class="d-block">Tags</h4>
+  @foreach ($tags as $tag)
+    @if ($errors->any())
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="tag-{{$tag->id}}" name="tags[]" {{  in_array($tag->id, old('tags',[])) ? 'checked' : ''}}>
+        <label class="form-check-label size-check" for="tag-{{$tag->id}}">{{ $tag->name }}</label>
+      </div>    
+    @else
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="tag-{{$tag->id}}" name="tags[]" {{ $post->tags->contains($tag) ? 'checked' : ''}}>
+        <label class="form-check-label size-check" for="tag-{{$tag->id}}">{{ $tag->name }}</label>
+      </div>    
+    @endif    
+  @endforeach  
+  <div class="custom-form form-group">
     <label for="content">Testo</label>
     <textarea class="form-control" id="content" rows="5" name="content">{{ old('content', $post->content) }}</textarea>
   </div>
