@@ -35,4 +35,8 @@
   </div>
   @endforeach
 </div>
+
+<div class="ml-3">
+  {{ $posts->links() }}
+</div>
 @endsection

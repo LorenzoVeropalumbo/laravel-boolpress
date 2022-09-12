@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         
-        $all_posts = Post::All();
+        $all_posts = Post::paginate(6);
         $all_tags = Tag::All();
         $request_info = $request->all();
 
