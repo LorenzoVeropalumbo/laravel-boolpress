@@ -15,13 +15,13 @@
   <nav aria-label="Page" class="mt-5">
   <ul class="pagination justify-content-center">
     <li class="page-item" :class="{'disabled' : currentPaginationPage == 1}">
-      <a class="page-link" href="#" @click="getAxiosJson(currentPaginationPage - 1)">Previous</a>
+      <a class="page-link" href="#" @click.prevent="getAxiosJson(currentPaginationPage - 1)">Previous</a>
     </li>
     <li class="page-item" :class="{'active' : currentPaginationPage == n}" v-for="n in totalPaginationPage" :key="n" >
-      <a class="page-link" href="#" @click="getAxiosJson(n)">{{ n }}</a>
+      <a class="page-link" href="#" @click.prevent="getAxiosJson(n)">{{ n }}</a>
     </li>
     <li class="page-item" :class="{'disabled' : currentPaginationPage == totalPaginationPage}">
-      <a class="page-link" href="#" @click="getAxiosJson(currentPaginationPage + 1)">Next</a>
+      <a class="page-link" href="#" @click.prevent="getAxiosJson(currentPaginationPage + 1)">Next</a>
     </li>
   </ul>
 </nav>

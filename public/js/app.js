@@ -2025,6 +2025,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
+        $event.preventDefault();
         return _vm.getAxiosJson(_vm.currentPaginationPage - 1);
       }
     }
@@ -2042,6 +2043,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
+          $event.preventDefault();
           return _vm.getAxiosJson(n);
         }
       }
@@ -2058,6 +2060,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
+        $event.preventDefault();
         return _vm.getAxiosJson(_vm.currentPaginationPage + 1);
       }
     }
