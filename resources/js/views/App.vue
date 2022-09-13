@@ -1,26 +1,17 @@
 <template>
   <div>
-    <a href="/admin">Admin Page</a>
-    <div class="container">
-      <h1>{{ PostsTitle }}</h1>
-      <Posts/>
-    </div>
-    
+    <Header/>
+    <router-view></router-view>
   </div> 
 </template>
+ 
+<script>  
+  import Header from '../components/Header';
 
-<script>
-  import Posts from "../components/Posts.vue";
-  
   export default {
     name: 'App',
     components: {
-      Posts,    
-    },
-    data() { 
-      return{
-        PostsTitle: 'Lista dei miei Post',
-      }   
+      Header,
     },
   }
 </script>

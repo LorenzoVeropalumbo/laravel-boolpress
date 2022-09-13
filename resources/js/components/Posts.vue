@@ -1,39 +1,41 @@
 <template>
-<div>
-  <div class="row row-cols-3 mt-3">
-    <div v-for="post in posts" :key="post.id" class="col">
-      <div class="card mt-4" style="width: 22rem;height: 180px;">
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h5 class="card-title">{{ post.title }}</h5>
-          <p class="card-text">{{ getSlicedText(post.content) }}</p>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+
+<div class="container">  
+  <div>
+    <h1 class="mt-5">Lista dei post</h1> 
+    <div class="row row-cols-3">
+      <div v-for="post in posts" :key="post.id" class="col">
+        <div class="card mt-4" style="width: 22rem;height: 180px;">
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ getSlicedText(post.content) }}</p>
+            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          </div>
         </div>
       </div>
     </div>
+    <nav aria-label="Page" class="mt-5">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" :class="{'disabled' : currentPaginationPage == 1}">
+        <a class="page-link" href="#" @click.prevent="getAxiosJson(currentPaginationPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" :class="{'active' : currentPaginationPage == n}" v-for="n in totalPaginationPage" :key="n" >
+        <a class="page-link" href="#" @click.prevent="getAxiosJson(n)">{{ n }}</a>
+      </li>
+      <li class="page-item" :class="{'disabled' : currentPaginationPage == totalPaginationPage}">
+        <a class="page-link" href="#" @click.prevent="getAxiosJson(currentPaginationPage + 1)">Next</a>
+      </li>
+    </ul>
+    </nav>
   </div>
-  <nav aria-label="Page" class="mt-5">
-  <ul class="pagination justify-content-center">
-    <li class="page-item" :class="{'disabled' : currentPaginationPage == 1}">
-      <a class="page-link" href="#" @click.prevent="getAxiosJson(currentPaginationPage - 1)">Previous</a>
-    </li>
-    <li class="page-item" :class="{'active' : currentPaginationPage == n}" v-for="n in totalPaginationPage" :key="n" >
-      <a class="page-link" href="#" @click.prevent="getAxiosJson(n)">{{ n }}</a>
-    </li>
-    <li class="page-item" :class="{'disabled' : currentPaginationPage == totalPaginationPage}">
-      <a class="page-link" href="#" @click.prevent="getAxiosJson(currentPaginationPage + 1)">Next</a>
-    </li>
-  </ul>
-</nav>
 </div>
-
 </template>
 
 <script>
 
 export default {
   name: 'Posts',
-  
   data() { 
     return{
       posts: [],
