@@ -1909,7 +1909,34 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Header'
+  name: 'Header',
+  data: function data() {
+    return {
+      currentActive: 0,
+      navlinks: [{
+        name: 'Home',
+        label: 'Home',
+        active: true
+      }, {
+        name: 'About',
+        label: 'About',
+        active: false
+      }, {
+        name: 'Post',
+        label: 'Post',
+        active: false
+      }]
+    };
+  },
+  methods: {
+    setActive: function setActive(index) {
+      if (this.currentActive != index) {
+        this.navlinks[this.currentActive].active = false;
+        this.navlinks[index].active = true;
+        this.currentActive = index;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2066,33 +2093,31 @@ var render = function render() {
     staticClass: "navbar navbar-light bg-light"
   }, [_c("div", {
     staticClass: "container-fluid nav-links"
-  }, [_c("router-link", {
-    staticClass: "navbar-brand",
-    attrs: {
-      to: {
-        name: "Home"
+  }, [_vm._l(_vm.navlinks, function (link, index) {
+    return _c("router-link", {
+      key: index,
+      staticClass: "navbar-brand",
+      "class": {
+        active: link.active == true
+      },
+      attrs: {
+        to: {
+          name: link.name
+        }
       }
-    }
-  }, [_vm._v("Home")]), _vm._v(" "), _c("router-link", {
-    staticClass: "navbar-brand",
-    attrs: {
-      to: {
-        name: "About"
+    }, [_c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.setActive(index);
+        }
       }
-    }
-  }, [_vm._v("About")]), _vm._v(" "), _c("router-link", {
-    staticClass: "navbar-brand",
-    attrs: {
-      to: {
-        name: "Post"
-      }
-    }
-  }, [_vm._v("Posts")]), _vm._v(" "), _c("a", {
+    }, [_vm._v(_vm._s(link.label))])]);
+  }), _vm._v(" "), _c("a", {
     staticClass: "navbar-brand",
     attrs: {
       href: "/admin"
     }
-  }, [_vm._v("Admin Page")])], 1)]);
+  }, [_vm._v("Admin Page")])], 2)]);
 };
 
 var staticRenderFns = [];
@@ -6725,7 +6750,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".container-fluid.nav-links[data-v-1f42fb90] {\n  justify-content: flex-start;\n  padding-block: 10px;\n}\n.container-fluid.nav-links a[data-v-1f42fb90] {\n  font-size: 19px;\n  font-weight: 700;\n  margin-right: 1.3rem;\n  text-transform: uppercase;\n  color: white;\n}\n.container-fluid.nav-links a[data-v-1f42fb90]:hover {\n  color: rgb(92, 92, 92);\n}\nnav[data-v-1f42fb90] {\n  background-color: gray !important;\n}", ""]);
+exports.push([module.i, ".container-fluid.nav-links[data-v-1f42fb90] {\n  justify-content: flex-start;\n  padding-block: 10px;\n}\n.container-fluid.nav-links a[data-v-1f42fb90] {\n  font-size: 19px;\n  font-weight: 700;\n  margin-right: 1.3rem;\n  text-transform: uppercase;\n  color: white;\n}\n.container-fluid.nav-links a[data-v-1f42fb90]:hover {\n  color: rgb(92, 92, 92);\n}\n.container-fluid.nav-links a.active[data-v-1f42fb90] {\n  color: rgb(92, 92, 92);\n}\nnav[data-v-1f42fb90] {\n  background-color: gray !important;\n}", ""]);
 
 // exports
 

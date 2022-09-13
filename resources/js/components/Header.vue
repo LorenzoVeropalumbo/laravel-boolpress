@@ -1,9 +1,12 @@
 <template>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid nav-links">
-      <router-link class="navbar-brand" :to="{ name: 'Home'}">Home</router-link>
-      <router-link class="navbar-brand" :to="{ name: 'About'}">About</router-link>
-      <router-link class="navbar-brand" :to="{ name: 'Post'}">Posts</router-link>
+      <router-link 
+      v-for="link,index in navlinks" :key="index"
+      class="navbar-brand" :class="{'active' : link.active == true}"
+      :to="{ name: link.name}"><span @click="setActive(index)">{{link.label}}</span>   
+      </router-link>
+      
       <a class="navbar-brand" href="/admin">Admin Page</a>
     </div>
   </nav>
@@ -11,7 +14,38 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  data() { 
+    return{
+      currentActive: 0,
+      navlinks: [
+        {
+          name: 'Home',
+          label: 'Home',
+          active: true,
+        },
+        {
+          name: 'About',
+          label: 'About',
+          active: false,
+        },
+        {
+          name: 'Post',
+          label: 'Post',
+          active: false,
+        },
+      ],
+    }   
+  },
+  methods: {
+    setActive(index){
+      if(this.currentActive != index){
+        this.navlinks[this.currentActive].active = false;
+        this.navlinks[index].active = true;
+        this.currentActive = index;
+      }
+    }
+  }
 }
 </script>
 
@@ -28,6 +62,10 @@ export default {
       color: white;
 
       &:hover{
+        color: rgb(92, 92, 92);
+      }
+
+      &.active{
         color: rgb(92, 92, 92);
       }
     }
