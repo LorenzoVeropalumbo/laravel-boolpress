@@ -4,15 +4,8 @@
   <div>
     <h1 class="mt-5">Lista dei post</h1> 
     <div class="row row-cols-3">
-      <div v-for="post in posts" :key="post.id" class="col">
-        <div class="card mt-4" style="width: 22rem;height: 180px;">
-          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ getSlicedText(post.content) }}</p>
-            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-          </div>
-        </div>
+      <div v-for="post in posts" :key="post.id" class="col"> 
+        <Post :post="post"/>
       </div>
     </div>
     <nav aria-label="Page" class="mt-5">
@@ -33,7 +26,7 @@
 </template>
 
 <script>
-
+import Post from "./Post";
 export default {
   name: 'Posts',
   data() { 
@@ -42,6 +35,9 @@ export default {
       totalPaginationPage: null,
       currentPaginationPage: 1,
     }   
+  },
+  components: {
+    Post,
   },
   mounted(){
     this.getAxiosJson();
@@ -61,18 +57,10 @@ export default {
         this.currentPaginationPage = response.data.results.current_page;
       })
     },
-    getSlicedText(text){
-      
-      if(text.length > 120){
-        text = text.slice(0, 120) + '...';
-      }
-
-      return text;
-    }
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
