@@ -1,8 +1,9 @@
 <template>
-  <div class="card mt-4" style="width: 22rem;height: 220px;">
+  <div class="card mt-4">
     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
+      <img class="card-img-top" :src="post.cover" :alt="post.title">  
       <p class="card-text">{{ getSlicedText(post.content) }}</p>
       <router-link 
       :to="{

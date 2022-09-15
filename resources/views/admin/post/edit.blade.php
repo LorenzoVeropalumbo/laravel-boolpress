@@ -15,13 +15,20 @@
 </div>
 @endif
 
-<form action="{{ route('admin.post.update',['post' => $post->id]) }}" method="POST">
+<form action="{{ route('admin.post.update',['post' => $post->id]) }}" method="POST" enctype="multipart/form-data">
   @csrf
   @method("PUT")
   <div class="custom-form form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
   </div>
+  <div class="mb-3">
+    <label for="image" class="form-label">Selezione una imagine</label>
+    <input class="form-control" id="image" type="file" name="image">
+    @if ($post->cover)
+      <img src="{{ asset('storage/' . $post->cover) }}" :alt="$post->title" class="mt-3">   
+    @endif
+  </div> 
   <div class="custom-form form-group">
     <label for="category_id">Categoria</label>
     <select class="form-select mb-2" id="category_id" name="category_id">   

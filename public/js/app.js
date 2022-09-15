@@ -2100,7 +2100,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('http://127.0.0.1:8000/api/posts/' + this.$route.params.slug).then(function (response) {
-        _this.post = response.data.results;
+        if (response.data.success) {
+          _this.post = response.data.results;
+        } else {
+          _this.$router.push({
+            name: '404'
+          });
+        }
       });
     }
   },
@@ -2199,16 +2205,18 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "card mt-4",
-    staticStyle: {
-      width: "22rem",
-      height: "220px"
-    }
+    staticClass: "card mt-4"
   }, [_c("div", {
     staticClass: "card-body"
   }, [_c("h5", {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
+  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }), _vm._v(" "), _c("p", {
     staticClass: "card-text"
   }, [_vm._v(_vm._s(_vm.getSlicedText(_vm.post.content)))]), _vm._v(" "), _c("router-link", {
     staticClass: "btn btn-primary",
@@ -2460,7 +2468,13 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container mt-3"
-  }, [_vm.post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", {
+  }, [_vm.post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _vm.post.cover ? _c("img", {
+    staticClass: "mt-3",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", {
     staticClass: "tags"
   }, _vm._l(_vm.post.tags, function (tag) {
     return _c("span", {

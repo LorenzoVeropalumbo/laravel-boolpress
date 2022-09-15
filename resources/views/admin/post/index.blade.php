@@ -11,7 +11,10 @@
 <div class="row row-cols-3">
   @foreach ($posts as $post)
   <div class="col">
-    <div class="card m-3" style="width: 18rem; height: 200px; width: 99%;">
+    <div class="card m-3">
+      @if ($post->cover)
+        <img class="card-img-top" src="{{asset('storage/' . $post->cover)}}" :alt="$post->title">   
+      @endif   
       <div class="card-body">
         <h5 class="card-title">{{ $post->title }}</h5>
         <div class="tags-container">

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
@@ -65,6 +65,11 @@ class PostController extends Controller
         $request->validate($this->getValidationRules()); 
 
         $form_data = $request->all();
+        if (isset($form_data['image'])) {
+           $img_path = Storage::put('post-covers', $form_data['image']);
+           $form_data['cover'] = $img_path;
+        }
+        
         $new_post = new Post(); 
         $new_post->fill($form_data);      
         $new_post->slug = $this->getFreeSlug($new_post->title);
@@ -150,8 +155,16 @@ class PostController extends Controller
     {
         $request->validate($this->getValidationRules()); 
         $form_data = $request->all();
-        $old_post = Post::findOrFail($id);
 
+        $old_post = Post::findOrFail($id);
+        if (isset($form_data['image'])) {
+            if($old_post->cover){
+              Storage::delete($old_post->cover);  
+            }
+            
+            $img_path = Storage::put('post-covers', $form_data['image']);
+            $form_data['cover'] = $img_path;
+        }
         if($form_data['title'] !== $old_post->title){
             $form_data['slug'] = $this->getFreeSlug($form_data['title']);
         }else{
@@ -178,6 +191,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
+        if($post_to_delete->cover){
+            Storage::delete($post_to_delete->cover);  
+        }
         $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
@@ -211,7 +227,8 @@ class PostController extends Controller
         return [
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10|max:60000',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'cover' => 'image|max: 1024|nullable'
         ];
     }
 }

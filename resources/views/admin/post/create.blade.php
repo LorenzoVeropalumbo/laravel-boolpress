@@ -15,13 +15,16 @@
 </div>
 @endif
 
-<form action="{{ route('admin.post.store') }}" method="POST">
+<form action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data">
   @csrf
   <div class="custom-form form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
   </div>
-  
+  <div class="mb-3">
+    <label for="image" class="form-label">Selezione una imagine</label>
+    <input class="form-control" id="image" type="file" name="image">
+  </div> 
   <div class="custom-form form-group">
     <label for="category_id" class="d-block">Categoria</label>
     <select class="form-select mb-2" id="category_id" name="category_id">   
