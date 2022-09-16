@@ -34,6 +34,11 @@ export default {
           label: 'Post',
           active: false,
         },
+        {
+          name: 'Contact',
+          label: 'Contact',
+          active: false,
+        },
       ],
     }   
   },

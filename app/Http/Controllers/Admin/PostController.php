@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewContactEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
@@ -80,6 +82,8 @@ class PostController extends Controller
         } else {
             $new_post->tags()->sync([]);
         }
+
+        Mail::to('admin@boolpress.it')->send(new NewContactEmail($new_post));
 
         return redirect()->route('admin.post.show', ['post' => $new_post->id]);
     }
